@@ -21,19 +21,20 @@ public class MainManager : MonoBehaviour
 
     private string nameSet;
     private int scoreSet;
+    private string hSName;
 
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        nameSet = GameManager.Instance.nameSet;
         if (GameManager.Instance != null)
         {
-            nameSet = GameManager.Instance.nameSet;
+            hSName = GameManager.Instance.highScoreName;
             scoreSet = GameManager.Instance.score;
 
         }
-        BestScoreText.GetComponent<Text>().text = "Best Score " + nameSet + " " + scoreSet;
+        BestScoreText.GetComponent<Text>().text = "Best Score " + hSName + " " + scoreSet;
        
 
         const float step = 0.6f;
@@ -85,7 +86,12 @@ public class MainManager : MonoBehaviour
     public void GameOver()
     {
         m_GameOver = true;
-        GameManager.Instance.SaveNameScore(nameSet, m_Points);
+
+        if (scoreSet < m_Points)
+        {
+            GameManager.Instance.SaveNameScore(nameSet, m_Points);
+        }
+
         GameOverText.GetComponent<Text>().text = nameSet + " " + m_Points;
         GameOverText.SetActive(true);
         

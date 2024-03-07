@@ -12,7 +12,7 @@ public class UiScript : MonoBehaviour
 
     public void Start()
     {
-        nameText.text = GameManager.Instance.nameSet;
+        nameText.text = "Enter name...";
     }
 
 

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public string nameSet;
     public int score;
+    public string highScoreName;
 
     [SerializeField] GameObject Ui;
 
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     }
 
     [System.Serializable]
-    class SaveData
+    class SaveDataHs
         {
         public string Name;
         public int Score;
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveNameScore(string name, int score)
     {
-        SaveData data = new SaveData();
+        SaveDataHs data = new SaveDataHs();
         data.Name = name;
         data.Score = score;
 
@@ -52,11 +53,11 @@ public class GameManager : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            SaveDataHs data = JsonUtility.FromJson<SaveDataHs>(json);
 
-            nameSet = data.Name;
+            highScoreName = data.Name;
             score = data.Score;
-            Ui.GetComponent<UiScript>().SetHighScore(nameSet, score);
+            Ui.GetComponent<UiScript>().SetHighScore(highScoreName, score);
 
         }
 
